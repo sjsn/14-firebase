@@ -1,0 +1,64 @@
+<!-- Element for shared note-pad space -->
+<div class="tweet-box chirppad">
+  <p>ChirpPad</p>
+  <textarea name="chirppad" class="form-control" ng-model="chirppad.text"></textarea>
+</div>
+
+<!-- Element for writing tweets -->
+<div class="tweet-box write-tweet">
+  <div>
+    <!-- Show image of current user -->
+    <img class="image" ng-src="{{users[userId].avatar}}"></img>
+
+    <!-- Form for writing tweets -->
+    <form name="chirpForm" id="tweet-input" role="form">
+
+      <!-- Bind model newTweet to a textarea element.
+        set a maximum length of 140 characters -->					
+      <textarea placeholder="What's Happening..." name="text" class="form-control" ng-model="newChirp.text" required ng-maxlength="140"></textarea>
+      <p class="help-block" ng-show="chirpForm.text.$error.maxlength">140 character limit!</p>
+      
+      <!-- Tweet button -->
+      <div class="form-group send-tweet">
+        <!-- Execute the tweet function when clicked -->
+        <button type="submit" class="btn btn-primary" ng-click="postChirp()" ng-disabled="chirpForm.$invalid">
+          <i class="fa fa-pencil-square-o"></i> Share
+        </button> 					
+      </div>
+    </form>
+  </div>
+</div> <!-- end tweet form -->
+
+
+
+<!-- Show everyone's tweets! -->
+<!-- Fill this in!! -->
+<div>
+  <!-- Use ng-repeat directive to repeat a div for each element in tweets -->
+  <div class="tweet-box" ng-repeat="tweet in chirps | orderBy : '-time'">
+    <div>
+      <!-- Put an img tag that shows the userImage of that tweet -->
+      <img class="image" ng-src="{{users[tweet.userId].avatar}}"></img>
+      
+      <!-- Put in the twitter handle and time of tweet -->
+      <span class="handle">{{users[tweet.userId].handle}}</span>
+      <span class="time">{{tweet.time | date:'medium'}}</span>
+    </div>
+
+    <!-- Put in the text of the tweet -->
+    <div class="tweet">
+      {{tweet.text}}
+    </div>
+
+    <!-- Create a section for showing tweet likes -->
+    <div class="likes">
+      
+      <!-- Show a heart icon that, when clicked, 
+        passes your tweet to your "like" function -->
+      <i ng-click="like(tweet)" class="fa fa-heart" aria-label="like"></i>
+      
+      <!-- Show your total number of likes -->
+      <span>{{tweet.likes}}</span>
+    </div>
+  </div>
+</div>
