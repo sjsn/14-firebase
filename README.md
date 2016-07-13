@@ -19,7 +19,7 @@ These features mean that Firebase can be a go-to back-end for producing a client
 ## What You'll Do
 We've got a couple hours, so let's build Twitter. 
 
-![Chirper screenshot](tutorial-img/chirper-screenshot.png)
+![Chirper screenshot](tutorial-img/chirper.png)
 
 By following this tutorial, you'll create **Chirper**: a simple social networking system that allows users to post "chirps" which can be seen by all other signed in users. Users can even like (heart) the chirps!
 
@@ -44,11 +44,15 @@ The app will thus include the following components:
 ## Firebase Setup
 Setting up firebase involves a number of steps:
 
-1. **Sign up for the service** You will need to sign up for the Firebase service to use it, though you can sign in with your UW email if you've set it up as a Google account.
+1. **Sign up for the service** 
+
+    You will need to sign up for the Firebase service to use it, though you can sign in with your UW email if you've set it up as a Google account.
 
     Visit [https://firebase.google.com/](https://firebase.google.com/) and click the "Get Started for Free" button. Sign in with your Google Account.
     
-2. **Create a Firebase App** You need to create a new project (per application) for the Chirper app you're building. Click the "Create New Project" button to do so.
+2. **Create a Firebase App** 
+
+    You need to create a new project (per application) for the Chirper app you're building. Click the "Create New Project" button to do so.
 
     In the pop-up window that appears, you'll need to give the app a unique name. Try `chirper-your-uw-id`.
  
@@ -56,11 +60,15 @@ Setting up firebase involves a number of steps:
 
     Navigation menus are on the left-hand side; we will be using some of these tabs as we go.
     
-4. **Add Firebase to Web Page** Now you'll need to add the Firebase library to your web page, as well as some configuration data to make sure your page connects to the App you just created.
+4. **Add Firebase to Web Page** 
+
+    Now you'll need to add the Firebase library to your web page, as well as some configuration data to make sure your page connects to the App you just created.
 
     Click on the "Add Firebase to your web app" button. This will provide you some HTML code for loading the Firebase library, as well as an inline `<script>` that configures your app to use Firebase. **Copy and paste** this code into your `index.html` file _above_ the `app.js` script!
 
-5. **Add the AngularFire library** In addition, you'll also need to include an _additional_ library called [AngularFire](https://github.com/firebase/angularfire) This official library provides integration between Angular and Firebase, allowing us to do three-way data binding and just overall making the Firebase API easier to use (particularly for user authentication!)
+5. **Add the AngularFire library** 
+
+    In addition, you'll also need to include an _additional_ library called [AngularFire](https://github.com/firebase/angularfire) This official library provides integration between Angular and Firebase, allowing us to do three-way data binding and just overall making the Firebase API easier to use (particularly for user authentication!)
 
     Recall the steps to using an Angular library:
     
@@ -74,13 +82,17 @@ Make sure to open the web page (from a local webserver) and check the developer 
 ## User Authentication
 We'll start by enabling user authentication: allowing users to sign up for and log into Chirper.
 
-1. **Enable authentication in Firebase** First you'll need to set up your Firebase App (in the cloud) to support user authentication. On the Firebase Console web page, click on the "Auth" tab in the side-bar on the left:
+1. **Enable authentication in Firebase** 
+
+    First you'll need to set up your Firebase App (in the cloud) to support user authentication. On the Firebase Console web page, click on the "Auth" tab in the side-bar on the left:
 
     ![Auth link](tutorial-img/auth.png)
 
     Then under "Sign-In Method" tab (at the top), you'll need to select the **"Email/Password"** object and **Enable** it. This turns on Firebase's ability to manage users by authentication them through an email and password
 
-2. **Include the sign-up form** Next we want to show the sign-up form on the web page. This is defined in a _partial_ `partials/signup-form.html`. While we could set up a routing system to display this partial, a simpler solution is to use the [`ng-include`](https://docs.angularjs.org/api/ng/directive/ngInclude) directive to have Angular load the partial at a particular place. We tend to put this directive on a `<div>`:
+2. **Include the sign-up form** 
+
+    Next we want to show the sign-up form on the web page. This is defined in a _partial_ `partials/signup-form.html`. While we could set up a routing system to display this partial, a simpler solution is to use the [`ng-include`](https://docs.angularjs.org/api/ng/directive/ngInclude) directive to have Angular load the partial at a particular place. We tend to put this directive on a `<div>`:
 
     ```html
     <div ng-include="path/to/partial.html"></div>
@@ -88,7 +100,9 @@ We'll start by enabling user authentication: allowing users to sign up for and l
 
     Use this directive to load the sign-up form inside the `<main>` element. When you refresh the web page, you should now see the sign-up form.
 
-3. **Bind models to form inputs** As practice (and to make sure you're aware of the model names), edit the `signup-form.html` partial so that each of the 4 `<input>` elements has a model bound to it (using the `ng-model` directive). The comments in the HTML indicate suggested names for the models.
+3. **Bind models to form inputs** 
+
+    As practice (and to make sure you're aware of the model names), edit the `signup-form.html` partial so that each of the 4 `<input>` elements has a model bound to it (using the `ng-model` directive). The comments in the HTML indicate suggested names for the models.
 
     - Also take note that the form includes displayed validation errors that are specific to the validation that is failed (e.g., if the password is missing or just too short). This is done by referring to the input's `$error` property. This is a good example for how your Testing Challenge form should work!
 
@@ -110,7 +124,9 @@ We'll start by enabling user authentication: allowing users to sign up for and l
     var Auth = $firebaseAuth();
     ```
 
-5. **Get form submission data** In your controller, create a function _on the scope_ called `signUp()` which will be called when the user clicks the "Sign Up" button on the form (notice the `ng-click`?). In this function, try logging out the models for `email` and `password` (which are on the `$scope`), to make sure that you can read them from the form. What happens?
+5. **Get form submission data** 
+
+    In your controller, create a function _on the scope_ called `signUp()` which will be called when the user clicks the "Sign Up" button on the form (notice the `ng-click`?). In this function, try logging out the models for `email` and `password` (which are on the `$scope`), to make sure that you can read them from the form. What happens?
 
     - **IMPORTANT TIP** You don't need to come up with real email addresses for testing. Try using `a@a.com`, `b@a.com`, `c@a.com`, etc. Similarly, `password` works fine for testing passwords (though you should never do that in real life!)
 
@@ -149,7 +165,9 @@ We'll start by enabling user authentication: allowing users to sign up for and l
     
     Modify **all 4** of the input models to instead refer to properties of this object. Now you should be able to log out the values of `$scope.newUser.email` and `$scope.newUser.password` when the form is submitted and see correct values!
 
-6. **Create user** Finally, we can actually go ahead and create a user. Use the method [`Auth.$createUserWithEmailAndPassword()`](https://github.com/firebase/angularfire/blob/master/docs/reference.md#createuserwithemailandpasswordemail-password), passing it the email and password from the form. This will create a new user account in Firebase (you can view it in the Web Console), as well as log in the user.
+6. **Create user** 
+
+    Finally, we can actually go ahead and create a user. Use the method [`Auth.$createUserWithEmailAndPassword()`](https://github.com/firebase/angularfire/blob/master/docs/reference.md#createuserwithemailandpasswordemail-password), passing it the email and password from the form. This will create a new user account in Firebase (you can view it in the Web Console), as well as log in the user.
 
     This method returns a _Promise_, so you should use the `.then()` method to do further work after the user is created (e.g., logging that they have been created):
     
@@ -171,7 +189,7 @@ We'll start by enabling user authentication: allowing users to sign up for and l
     
     Along similar lines, go to the `index.html` file and add a directive (e.g., [`ng-show`](https://docs.angularjs.org/api/ng/directive/ngShow)) to your `ng-include` div so that it only shows when there is _not_ a `userId` variable defined (`!userId`).
     
-    Also add a _second_ <div> that uses `ng-include` to show the `partials/main.html` partial (which is the main Chirper page). This partial should only show when the user is signed in!
+    Also add a _second_ `<div>` that uses `ng-include` to show the `partials/main.html` partial (which is the main Chirper page). This partial should only show when the user is signed in!
 
 8. **Handle authentication events**
 
@@ -194,7 +212,9 @@ We'll start by enabling user authentication: allowing users to sign up for and l
 
     Be sure and do this _outside_ of your `signUp()` function (we want to register this listener all the time, not just when they hit the button).
 
-9. **Signing Out and Signing In** As a last step for authentication, we want to make sure the "Sign Out" buttons and "Sign In" buttons work (the "Sign In" button will sign in an existing user given the email and password). I've provided you examples to save time.
+9. **Signing Out and Signing In** 
+
+    As a last step for authentication, we want to make sure the "Sign Out" buttons and "Sign In" buttons work (the "Sign In" button will sign in an existing user given the email and password). I've provided you examples to save time.
 
     ```js
    	//respond to "Sign Out" button
@@ -268,7 +288,9 @@ Be sure and hit "Publish" to save your changes!
 ### Accessing Data
 Now we can add code to our controller to start interacting with the JOITC database.
 
-1. **Get reference to the database** In order to interact with the database from our JavaScript code, we need to have a variable which _references_ that JSON object. The Firebase library that you included at the start of the tutorial includes methods that let us create these references:
+1. **Get reference to the database** 
+
+    In order to interact with the database from our JavaScript code, we need to have a variable which _references_ that JSON object. The Firebase library that you included at the start of the tutorial includes methods that let us create these references:
 
     ```js
     //get reference to the "root" of the database: the containing JSON
@@ -283,7 +305,9 @@ Now we can add code to our controller to start interacting with the JOITC databa
 
     This method will create a new key/value in the JSON object if it doesn't exist
 
-2. **Save the user data** Now that we have a reference to the "users" value in the JOITC, we can save the user's avatar and handle when we first create a user.
+2. **Save the user data** 
+
+    Now that we have a reference to the "users" value in the JOITC, we can save the user's avatar and handle when we first create a user.
 
     Inside the `signUp()` function, _after_ you've created the user (in the `.then()`, create a new local variable (_not_ on scope) called `userData`, which is an object with a key `handle` and a key `avatar`. Assign the `$scope.newUser.handle` and `$scope.newUser.avatar` models from the form to this object.
     
@@ -300,7 +324,9 @@ Now we can add code to our controller to start interacting with the JOITC databa
 But now that we've saved data in the cloud, we want to display it in the _view_ as well. That is, we want to **bind** the cloud data to a model (on `$scope`), which can then be bound to the view element, automatically showing whatever data is currently in the cloud!
 
    
-1. **The `$firebaseObject` service** [AngularFire lets us perform this kind of binding](https://github.com/firebase/angularfire/blob/master/docs/guide/synchronized-objects.md) to an object using the [`$firebaseObject`](https://github.com/firebase/angularfire/blob/master/docs/reference.md#firebaseobject) service. You will need to **inject** this service into your _controller_ along with `$firebaseAuth` (remember to include it twice!)
+1. **The `$firebaseObject` service** 
+
+    [AngularFire lets us perform this kind of binding](https://github.com/firebase/angularfire/blob/master/docs/guide/synchronized-objects.md) to an object using the [`$firebaseObject`](https://github.com/firebase/angularfire/blob/master/docs/reference.md#firebaseobject) service. You will need to **inject** this service into your _controller_ along with `$firebaseAuth` (remember to include it twice!)
 
     We then perform the binding between the JOITC data and the `$scope` model by calling this service as a method, passing it the JOITC reference we're interested in, and assigning the result to the `$scope` model:
     
@@ -313,7 +339,9 @@ But now that we've saved data in the cloud, we want to display it in the _view_ 
     
     - Note that this is just 1-way binding: any changes we make to the model are not automatically saved to the cloud.
 
-2. **Render the model** Now we can show this data on the page. In the `index.html` file, next to the "Sign Out" button there is a `<span>` that contains the word "Handle". Replace this text with an expression that shows the handle of the current logged-in user:
+2. **Render the model** 
+
+    Now we can show this data on the page. In the `index.html` file, next to the "Sign Out" button there is a `<span>` that contains the word "Handle". Replace this text with an expression that shows the handle of the current logged-in user:
 
     ```
     {{users[userId].handle}}
@@ -329,7 +357,9 @@ By default, a `$firebaseObject` only provide "1-way" data binding: changes made 
 
 We will demonstrate this by making the "ChirpPad" a shared data variable.
 
-1. **Modify the security rules** In order to let clients save data to the cloud, we need to add a security rule. In the Firebase Web Console, add the following object (inside the "rules"  key):
+1. **Modify the security rules** 
+
+    In order to let clients save data to the cloud, we need to add a security rule. In the Firebase Web Console, add the following object (inside the "rules"  key):
 
     ```json
     "chirppad": {
@@ -339,18 +369,24 @@ We will demonstrate this by making the "ChirpPad" a shared data variable.
 
     This will allow _any_ authenticated user to write to the "chirppad" key.
 
-2. **Add a model for the textarea** At the top of the `main.html` file, there is a div for the  "ChirpPad", which contains a `<textarea>` that the user can type into. Add a model (using `ng-model` to this input.
+2. **Add a model for the textarea** 
+
+    At the top of the `main.html` file, there is a div for the  "ChirpPad", which contains a `<textarea>` that the user can type into. Add a model (using `ng-model` to this input.
 
     **IMPORTANT** Because this input is again being loaded in a _child scope_ (like the sign-up form), you need to create an empty object in the parent scope (e.g., `$scope.chirppad = {}`) and then have this input bind to a property of that object (e.g., `ng-model="chirppad.text"`).
 
-3. **Create a `$firebaseObject`** In your JavaScript, create a reference to this `chirppad` key in the JOITC, and wrap it in a `$firebaseObject` to produce the 1-way data binding:
+3. **Create a `$firebaseObject`** 
+
+    In your JavaScript, create a reference to this `chirppad` key in the JOITC, and wrap it in a `$firebaseObject` to produce the 1-way data binding:
 
     ```js
 	var padRef = baseRef.child('chirppad');
 	var chirpPadObj = $firebaseObject(padRef);  
     ```
 
-4. **Bind the database object to the model** Finally, we can use the `$bindTo()` method to specify that the `$firebaseObject` you just defined should take any changes to the model on the current `$scope` and use that to update the "chirppad" key in the cloud:
+4. **Bind the database object to the model** 
+
+    Finally, we can use the `$bindTo()` method to specify that the `$firebaseObject` you just defined should take any changes to the model on the current `$scope` and use that to update the "chirppad" key in the cloud:
 
     ```js
     chirpPadObj.$bindTo($scope, "chirppad");
@@ -362,7 +398,9 @@ Now you should be able to type into the ChirpPad and see the results automatical
 ## Posting Chirps
 Having gotten the hang of Firebase (I hope!), we can now actually let the user be able to post new messages (chirps)!
 
-1. **Modify the security rules** Yet again, we need to add a security rule. In the Firebase Web Console, add the following object (inside the "rules"  key):
+1. **Modify the security rules** 
+
+    Yet again, we need to add a security rule. In the Firebase Web Console, add the following object (inside the "rules"  key):
 
     ```json
     "chirps": {
@@ -372,10 +410,13 @@ Having gotten the hang of Firebase (I hope!), we can now actually let the user b
 
     This will allow _any_ authenticated user to write to the "chirps" key, which we'll use to store an **array** of Chirps.
 
-2. **Get a reference to the "chirps" key** Just as you did before with the "users" and "chirppad" keys, get a firebase _reference_ to the `'chirps'` key in the JSON Object in the Cloud.
+2. **Get a reference to the "chirps" key** 
+
+    Just as you did before with the "users" and "chirppad" keys, get a firebase _reference_ to the `'chirps'` key in the JSON Object in the Cloud.
 
 3. **The `$firebaseArray` service**
-We're going to want to save Chirps as an **array** of Objects (_think about why!_). While an array is technically an object, [AngularFire provides a special service](https://github.com/firebase/angularfire/blob/master/docs/guide/synchronized-arrays.md#modifying-the-synchronized-array) to do 2-way binding for arrays called `$firebaseArray`. This service means that we can modify the array **concurrently** (at the same time) from multiple computers, without any errors occurring or data being lost depending on which person happened to "win the race" and get their change in first:
+
+    We're going to want to save Chirps as an **array** of Objects (_think about why!_). While an array is technically an object, [AngularFire provides a special service](https://github.com/firebase/angularfire/blob/master/docs/guide/synchronized-arrays.md#modifying-the-synchronized-array) to do 2-way binding for arrays called `$firebaseArray`. This service means that we can modify the array **concurrently** (at the same time) from multiple computers, without any errors occurring or data being lost depending on which person happened to "win the race" and get their change in first:
 
     ![Array concurrency example](tutorial-img/array-concurrency.png)
 
@@ -383,19 +424,25 @@ We're going to want to save Chirps as an **array** of Objects (_think about why!
     
     You will need to **inject** the `$firebaseArray` service into your controller, along-side the `$firebaseAuth` and `$firebaseObject` services.
 
-4. **Create a `$firebaseArray` object** We then call `$firebaseArray()` on a reference and bind it to the `$scope`, just like we did with the "users" object:
+4. **Create a `$firebaseArray` object** 
+
+    We then call `$firebaseArray()` on a reference and bind it to the `$scope`, just like we did with the "users" object:
 
     ```js
 	$scope.chirps = $firebaseArray(chirpsRef)
     ```
 
-5. **Access the post form** Yet again, because the chirping form is defined in a child scope (partial), we need to create an object in the parent scope that the form's model can be assigned to:
+5. **Access the post form** 
+
+    Yet again, because the chirping form is defined in a child scope (partial), we need to create an object in the parent scope that the form's model can be assigned to, _as well as_ assign a model (using `ng-model`) to the text-area!
 
     ```js
     $scope.newChirp = {};
     ```
 
-6. **Handle post submission** Add a function called `postChirp()` to the `$scope` that can be called when the "Share" button is clicked. This function should declare a local (non-scope) variable called `chirpData` with the following properties:
+6. **Handle post submission** 
+
+    Add a function called `postChirp()` to the `$scope` that can be called when the "Share" button is clicked. This function should declare a local (non-scope) variable called `chirpData` with the following properties:
 
     ```
     {
@@ -410,7 +457,9 @@ We're going to want to save Chirps as an **array** of Objects (_think about why!
 
     Log out this object to confirm that all the data looks correct.
 
-7. **Add the data to the cloud array** Now that we have the data, we can add it to the `$firebaseArray` object (which is bound to the JOITC). But we're not going to use the `.push()` method like normal (because that is not concurrency-safe). Instead, we'll use the `$add()` method:
+7. **Add the data to the cloud array** 
+
+    Now that we have the data, we can add it to the `$firebaseArray` object (which is bound to the JOITC). But we're not going to use the `.push()` method like normal (because that is not concurrency-safe). Instead, we'll use the `$add()` method:
 
     ```js
     $scope.chirps.$add(chirpData)

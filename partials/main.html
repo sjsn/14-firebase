@@ -1,7 +1,7 @@
 <!-- Element for shared note-pad space -->
 <div class="tweet-box chirppad">
   <p>ChirpPad</p>
-  <textarea name="chirppad" class="form-control" ng-model="chirppad.text"></textarea>
+  <textarea name="chirppad" class="form-control"></textarea>
 </div>
 
 <!-- Element for writing tweets -->
@@ -13,14 +13,11 @@
     <!-- Form for writing tweets -->
     <form name="chirpForm" id="tweet-input" role="form">
 
-      <!-- Bind model newTweet to a textarea element.
-        set a maximum length of 140 characters -->					
-      <textarea placeholder="What's Happening..." name="text" class="form-control" ng-model="newChirp.text" required ng-maxlength="140"></textarea>
+      <textarea placeholder="What's Happening..." name="text" class="form-control" required ng-maxlength="140"></textarea>
       <p class="help-block" ng-show="chirpForm.text.$error.maxlength">140 character limit!</p>
       
       <!-- Tweet button -->
       <div class="form-group send-tweet">
-        <!-- Execute the tweet function when clicked -->
         <button type="submit" class="btn btn-primary" ng-click="postChirp()" ng-disabled="chirpForm.$invalid">
           <i class="fa fa-pencil-square-o"></i> Share
         </button> 					
@@ -32,9 +29,7 @@
 
 
 <!-- Show everyone's tweets! -->
-<!-- Fill this in!! -->
 <div>
-  <!-- Use ng-repeat directive to repeat a div for each element in tweets -->
   <div class="tweet-box" ng-repeat="tweet in chirps | orderBy : '-time'">
     <div>
       <!-- Put an img tag that shows the userImage of that tweet -->
