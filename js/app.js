@@ -55,7 +55,7 @@ app.controller('ChirperCtrl', ['$scope', "$firebaseAuth", "$firebaseObject", "$f
 	$scope.postChirp = function() {
 
 		var chirpData = {
-		    text: $scope.chirppad.text,
+		    text: $scope.newChirp.text,
 		    userId: $scope.userId,
 		    likes: 0,
 		    time: firebase.database.ServerValue.TIMESTAMP        
@@ -74,7 +74,7 @@ app.controller('ChirperCtrl', ['$scope', "$firebaseAuth", "$firebaseObject", "$f
 
    $scope.like = function(tweet) {
 
-   		tweet.likes++;
+   		tweet.likes = tweet.likes + 1;
    		$scope.chirps.$save(tweet);
 
    };
